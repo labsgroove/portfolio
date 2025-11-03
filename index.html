@@ -46,24 +46,26 @@
     }
 
     .meteoro {
-      position: absolute;
-      width: 120px;
-      height: 2px;
-      background: linear-gradient(90deg, white, transparent);
-      opacity: 0.6;
-      animation: cair 4s linear infinite;
-    }
+  position: absolute;
+  width: 2px;            /* traço fino */
+  height: 100px;          /* comprido pra efeito de rastro */
+  background: linear-gradient(to bottom, white, transparent);
+  opacity: 0.8;
+  transform: rotate(25deg); /* inclinação suave */
+  animation: cair 2s linear infinite;
+}
 
-    @keyframes cair {
-  0% { 
-    transform: translateX(120vw) translateY(-50px) rotate(45deg);
+@keyframes cair {
+  0% {
+    transform: translateX(120vw) translateY(-50px) rotate(25deg);
     opacity: 1;
   }
-  100% { 
-    transform: translateX(-100vw) translateY(100vh) rotate(45deg);
+  100% {
+    transform: translateX(-50vw) translateY(100vh) rotate(25deg);
     opacity: 0;
   }
 }
+
 
   </style>
 </head>
@@ -138,17 +140,17 @@
         meteoro.classList.add("meteoro");
 
         // Altura inicial aleatória no topo
-        meteoro.style.top = `${Math.random() * 50}px`;
-        // Largura inicial fora da tela direita
+        meteoro.style.top = `${Math.random() * 100}px`;
+        // Posição inicial fora da tela direita
         meteoro.style.left = `120vw`;
 
-        // Duração rápida pra dar efeito de risco
+        // Duração aleatória rápida pra efeito de risco
         meteoro.style.animationDuration = `${1 + Math.random() * 1.5}s`;
 
         meteorosContainer.appendChild(meteoro);
-        setTimeout(() => meteoro.remove(), 3000); // remove após terminar
+        setTimeout(() => meteoro.remove(), 2500);
     }
-    setInterval(criarMeteoro, 1000); // meteoro a cada 1s
+    setInterval(criarMeteoro, 800);
 
     // Projetos com imagens estáticas
     const projetos = [
