@@ -17,17 +17,18 @@
   <style>
     body {
       background: radial-gradient(circle at bottom, #050505 0%, #000 80%);
-      overflow: hidden;
-      min-height: 100vh;
       color: white;
+      min-height: 100vh;
+      margin: 0;
+      overflow-y: auto; /* permite scroll vertical */
     }
 
-    /* Fundo estrelado */
+    /* Fundo animado */
     .estrelas, .meteoros {
-      position: absolute;
+      position: fixed; /* fundo fixo */
       inset: 0;
-      overflow: hidden;
       z-index: 0;
+      pointer-events: none;
     }
 
     .estrela {
@@ -45,32 +46,22 @@
       50% { opacity: 1; }
     }
 
-  .meteoro {
-  position: absolute;
-  width: 2px;
-  height: 100px; /* rastro longo */
-  background: linear-gradient(to bottom, white, transparent);
-  opacity: 0.8;
-  transform: rotate(45deg);
-}
+    .meteoro {
+      position: absolute;
+      width: 2px;
+      height: 100px;
+      background: linear-gradient(to top, white, transparent); /* cauda invertida */
+      opacity: 0.8;
+    }
 
-@keyframes cair {
-  0% {
-    transform: translate(var(--start-x), var(--start-y)) rotate(45deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--end-x), var(--end-y)) rotate(45deg);
-    opacity: 0;
-  }
-}
-
-
-
+    @keyframes cair {
+      0% { transform: translate(var(--start-x), var(--start-y)) rotate(45deg); opacity: 1; }
+      100% { transform: translate(var(--end-x), var(--end-y)) rotate(45deg); opacity: 0; }
+    }
   </style>
 </head>
 
-<body class="relative flex flex-col items-center justify-center text-center">
+<body class="relative flex flex-col items-center text-center">
 
   <!-- Fundo animado -->
   <div class="estrelas" id="estrelas"></div>
@@ -129,34 +120,34 @@
     for (let i = 0; i < 120; i++) {
       const estrela = document.createElement("div");
       estrela.classList.add("estrela");
-      estrela.style.top = `${Math.random() * 100}%`;
-      estrela.style.left = `${Math.random() * 100}%`;
+      estrela.style.top = `${Math.random() * window.innerHeight}px`;
+      estrela.style.left = `${Math.random() * window.innerWidth}px`;
       estrela.style.animationDelay = `${Math.random() * 3}s`;
       estrelasContainer.appendChild(estrela);
     }
 
-        function criarMeteoro() {
-            const meteoro = document.createElement("div");
-            meteoro.classList.add("meteoro");
+    // Meteoros
+    function criarMeteoro() {
+      const meteoro = document.createElement("div");
+      meteoro.classList.add("meteoro");
 
-            const startX = Math.random() * window.innerWidth; // em todo o topo
-            const startY = -50; // acima da tela
-            const endX = startX - 400 - Math.random() * 300; // diagonal para esquerda
-            const endY = window.innerHeight + 50; // fora da tela embaixo
+      const startX = Math.random() * window.innerWidth;
+      const startY = -100;
+      const endX = startX - (300 + Math.random() * 300); // diagonal esquerda
+      const endY = window.innerHeight + 100;
 
-            meteoro.style.setProperty('--start-x', startX + 'px');
-            meteoro.style.setProperty('--start-y', startY + 'px');
-            meteoro.style.setProperty('--end-x', endX + 'px');
-            meteoro.style.setProperty('--end-y', endY + 'px');
+      meteoro.style.setProperty('--start-x', startX + 'px');
+      meteoro.style.setProperty('--start-y', startY + 'px');
+      meteoro.style.setProperty('--end-x', endX + 'px');
+      meteoro.style.setProperty('--end-y', endY + 'px');
 
-            const duracao = 3 + Math.random() * 2; // 3-5 segundos
-            meteoro.style.animation = `cair ${duracao}s linear forwards`;
+      const duracao = 4 + Math.random() * 2; // 4-6s
+      meteoro.style.animation = `cair ${duracao}s linear forwards`;
 
-            meteorosContainer.appendChild(meteoro);
-            setTimeout(() => meteoro.remove(), duracao * 1000);
-        }
-
-        setInterval(criarMeteoro, 1500); // meteoros aparecem a cada 1,5s
+      meteorosContainer.appendChild(meteoro);
+      setTimeout(() => meteoro.remove(), duracao * 1000);
+    }
+    setInterval(criarMeteoro, 1200);
 
     // Projetos com imagens estáticas
     const projetos = [
@@ -174,6 +165,11 @@
         nome: "Caça ao Tesouro",
         url: "https://teu-tesouro.vercel.app",
         thumb: "https://via.placeholder.com/400x250?text=Caça+ao+Tesouro"
+      },
+      {
+        nome: "Projeto Extra",
+        url: "#",
+        thumb: "https://via.placeholder.com/400x250?text=Extra+Project"
       }
     ];
 
