@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfólio do Digão</title>
+
+    <!-- Tailwind direto via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Ícones (Lucide) -->
+    <script type="module">
+      import { createIcons, MessageCircle, Linkedin } from "https://cdn.skypack.dev/lucide";
+      window.addEventListener("DOMContentLoaded", () => createIcons());
+    </script>
+
+    <style>
+      body {
+        background: radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
+        overflow: hidden;
+        min-height: 100vh;
+      }
+
+      /* Fundo animado */
+      .fundo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 255, 255, 0.05),
+          transparent 60%
+        );
+        animation: mover 12s linear infinite alternate;
+      }
+      @keyframes mover {
+        from {
+          transform: translate(-10%, -10%) scale(1);
+        }
+        to {
+          transform: translate(10%, 10%) scale(1.2);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="relative flex flex-col items-center justify-center text-white fundo">
+    <div class="z-10 w-full max-w-3xl text-center px-6">
+      <h1 class="text-5xl font-extrabold mb-3 tracking-tight">
+        Portfólio do Digão
+      </h1>
+      <p class="text-gray-400 mb-10 text-lg">
+        Insira um link do seu projeto hospedado na Vercel para ver a preview.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <input
+          id="url"
+          type="text"
+          placeholder="https://meuprojeto.vercel.app"
+          class="flex-1 px-4 py-3 rounded-xl bg-zinc-800 border border-zinc-700 text-gray-200 placeholder-gray-500 focus:border-gray-400 focus:outline-none w-full sm:w-auto"
+        />
+        <button
+          id="previewBtn"
+          class="px-5 py-3 bg-gray-200 text-black font-semibold rounded-xl hover:bg-white transition"
+        >
+          Preview
+        </button>
+      </div>
+
+      <div id="previewContainer" class="mt-10 hidden">
+        <iframe
+          id="previewFrame"
+          src=""
+          class="w-full h-[500px] rounded-2xl border border-zinc-700 shadow-2xl"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Relógio -->
+    <div
+      id="clock"
+      class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right"
+    ></div>
+
+    <!-- Botões flutuantes -->
+    <div class="absolute bottom-6 right-6 flex flex-col gap-3">
+      <a
+        href="https://wa.me/seunumerowhatsapp"
+        target="_blank"
+        rel="noreferrer"
+        class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
+      >
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+      </a>
+      <a
+        href="https://linkedin.com/in/seulinkedin"
+        target="_blank"
+        rel="noreferrer"
+        class="p-4 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
+      >
+        <i data-lucide="linkedin" class="w-5 h-5"></i>
+      </a>
+    </div>
+
+    <script>
+      // Preview do projeto
+      const previewBtn = document.getElementById("previewBtn");
+      const urlInput = document.getElementById("url");
+      const previewContainer = document.getElementById("previewContainer");
+      const previewFrame = document.getElementById("previewFrame");
+
+      previewBtn.addEventListener("click", () => {
+        const url = urlInput.value.trim();
+        if (!url.startsWith("http")) {
+          alert("Insira uma URL válida (ex: https://meuprojeto.vercel.app)");
+          return;
+        }
+        previewFrame.src = url;
+        previewContainer.classList.remove("hidden");
+      });
+
+      // Relógio
+      function atualizarRelogio() {
+        const agora = new Date();
+        const hora = agora.toLocaleTimeString();
+        const data = agora.toLocaleDateString();
+        document.getElementById("clock").innerHTML = `<div>${hora}</div><div class="text-gray-400">${data}</div>`;
+      }
+      setInterval(atualizarRelogio, 1000);
+      atualizarRelogio();
+    </script>
+  </body>
+</html>
