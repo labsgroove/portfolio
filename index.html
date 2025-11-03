@@ -1,182 +1,178 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfólio do Digão</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio do Digão</title>
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Ícones -->
-    <script type="module">
-      import { createIcons, Linkedin, MessageCircle } from "https://cdn.skypack.dev/lucide";
-      window.addEventListener("DOMContentLoaded", () => createIcons());
-    </script>
+  <!-- Ícones -->
+  <script type="module">
+    import { createIcons, Linkedin, MessageCircle } from "https://cdn.skypack.dev/lucide";
+    window.addEventListener("DOMContentLoaded", () => createIcons());
+  </script>
 
-    <style>
-      body {
-        background: radial-gradient(circle at bottom, #050505 0%, #000 80%);
-        overflow: hidden;
-        min-height: 100vh;
-        color: white;
+  <style>
+    body {
+      background: radial-gradient(circle at bottom, #050505 0%, #000 80%);
+      overflow: hidden;
+      min-height: 100vh;
+      color: white;
+    }
+
+    /* Fundo estrelado */
+    .estrelas, .meteoros {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .estrela {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: piscar 3s infinite ease-in-out;
+    }
+
+    @keyframes piscar {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    .meteoro {
+      position: absolute;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      opacity: 0.6;
+      animation: cair 4s linear infinite;
+    }
+
+    @keyframes cair {
+      0% { transform: translateX(150vw) translateY(-50vh) rotate(45deg); opacity: 1; }
+      100% { transform: translateX(-50vw) translateY(150vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body class="relative flex flex-col items-center justify-center text-center">
+
+  <!-- Fundo animado -->
+  <div class="estrelas" id="estrelas"></div>
+  <div class="meteoros" id="meteoros"></div>
+
+  <!-- Conteúdo -->
+  <div class="z-10 w-full max-w-5xl p-6">
+    <h1 class="text-5xl font-extrabold mb-3 tracking-tight">Portfólio do Digão</h1>
+    <p class="text-gray-400 mb-10 text-lg">Meus projetos em destaque.</p>
+
+    <!-- Projetos -->
+    <div id="projetos" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </div>
+
+  <!-- Relógio -->
+  <div
+    id="clock"
+    class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right z-10"
+  ></div>
+
+  <!-- Botões flutuantes -->
+  <div class="absolute bottom-6 right-6 flex flex-col gap-3 z-10">
+    <a
+      href="https://wa.me/seunumerowhatsapp"
+      target="_blank"
+      rel="noreferrer"
+      class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
+    >
+      <i data-lucide="message-circle" class="w-5 h-5"></i>
+    </a>
+    <a
+      href="https://linkedin.com/in/seulinkedin"
+      target="_blank"
+      rel="noreferrer"
+      class="p-4 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
+    >
+      <i data-lucide="linkedin" class="w-5 h-5"></i>
+    </a>
+  </div>
+
+  <script>
+    // Relógio
+    function atualizarRelogio() {
+      const agora = new Date();
+      const hora = agora.toLocaleTimeString();
+      const data = agora.toLocaleDateString();
+      document.getElementById("clock").innerHTML = `<div>${hora}</div><div class="text-gray-400">${data}</div>`;
+    }
+    setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
+
+    // Fundo estrelas
+    const estrelasContainer = document.getElementById("estrelas");
+    const meteorosContainer = document.getElementById("meteoros");
+
+    for (let i = 0; i < 120; i++) {
+      const estrela = document.createElement("div");
+      estrela.classList.add("estrela");
+      estrela.style.top = `${Math.random() * 100}%`;
+      estrela.style.left = `${Math.random() * 100}%`;
+      estrela.style.animationDelay = `${Math.random() * 3}s`;
+      estrelasContainer.appendChild(estrela);
+    }
+
+    function criarMeteoro() {
+      const meteoro = document.createElement("div");
+      meteoro.classList.add("meteoro");
+      meteoro.style.top = `${Math.random() * 50}%`;
+      meteoro.style.left = `${Math.random() * 50}%`;
+      meteoro.style.animationDuration = `${3 + Math.random() * 2}s`;
+      meteorosContainer.appendChild(meteoro);
+      setTimeout(() => meteoro.remove(), 5000);
+    }
+    setInterval(criarMeteoro, 2000);
+
+    // Projetos com imagens estáticas
+    const projetos = [
+      {
+        nome: "Tetris 3D",
+        url: "https://teu-tetris3d.vercel.app",
+        thumb: "https://via.placeholder.com/400x250?text=Tetris+3D"
+      },
+      {
+        nome: "Simulador de Aquário",
+        url: "https://teu-aquario.vercel.app",
+        thumb: "https://via.placeholder.com/400x250?text=Aquario+3D"
+      },
+      {
+        nome: "Caça ao Tesouro",
+        url: "https://teu-tesouro.vercel.app",
+        thumb: "https://via.placeholder.com/400x250?text=Caça+ao+Tesouro"
       }
+    ];
 
-      /* --- Fundo estrelado --- */
-      .estrelas,
-      .meteoros {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        z-index: 0;
-      }
+    const container = document.getElementById("projetos");
+    projetos.forEach(p => {
+      const card = document.createElement("div");
+      card.className =
+        "relative group border border-zinc-700 rounded-2xl overflow-hidden shadow-xl bg-zinc-900 hover:scale-[1.03] transition-transform duration-300";
 
-      .estrela {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: white;
-        border-radius: 50%;
-        opacity: 0.8;
-        animation: piscar 3s infinite ease-in-out;
-      }
-
-      @keyframes piscar {
-        0%, 100% { opacity: 0.2; }
-        50% { opacity: 1; }
-      }
-
-      .meteoro {
-        position: absolute;
-        width: -120px;
-        height: 2px;
-        background: linear-gradient(90deg, white, transparent);
-        opacity: 0.6;
-        animation: cair 4s linear infinite;
-      }
-
-      @keyframes cair {
-        0% { transform: translateX(-150%) translateY(-150%) rotate(45deg); opacity: 1; }
-        100% { transform: translateX(150vw) translateY(150vh) rotate(45deg); opacity: 0; }
-      }
-    </style>
-  </head>
-
-  <body class="relative flex flex-col items-center justify-center text-center">
-
-    <!-- Fundo animado -->
-    <div class="estrelas" id="estrelas"></div>
-    <div class="meteoros" id="meteoros"></div>
-
-    <!-- Conteúdo -->
-    <div class="z-10 w-full max-w-5xl p-6">
-      <h1 class="text-5xl font-extrabold mb-3 tracking-tight">Portfólio do Digão</h1>
-      <p class="text-gray-400 mb-10 text-lg">Meus projetos em destaque.</p>
-
-      <!-- Projetos -->
-      <div id="projetos" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
-    </div>
-
-    <!-- Relógio -->
-    <div
-      id="clock"
-      class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right z-10"
-    ></div>
-
-    <!-- Botões flutuantes -->
-    <div class="absolute bottom-6 right-6 flex flex-col gap-3 z-10">
-      <a
-        href="https://wa.me/seunumerowhatsapp"
-        target="_blank"
-        rel="noreferrer"
-        class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
-      >
-        <i data-lucide="message-circle" class="w-5 h-5"></i>
-      </a>
-      <a
-        href="https://linkedin.com/in/seulinkedin"
-        target="_blank"
-        rel="noreferrer"
-        class="p-4 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
-      >
-        <i data-lucide="linkedin" class="w-5 h-5"></i>
-      </a>
-    </div>
-
-    <script>
-      // 🕒 Relógio
-      function atualizarRelogio() {
-        const agora = new Date();
-        const hora = agora.toLocaleTimeString();
-        const data = agora.toLocaleDateString();
-        document.getElementById("clock").innerHTML = `<div>${hora}</div><div class="text-gray-400">${data}</div>`;
-      }
-      setInterval(atualizarRelogio, 1000);
-      atualizarRelogio();
-
-      // 🌠 Fundo com estrelas e meteoros
-      const estrelasContainer = document.getElementById("estrelas");
-      const meteorosContainer = document.getElementById("meteoros");
-
-      // Cria estrelas
-      for (let i = 0; i < 120; i++) {
-        const estrela = document.createElement("div");
-        estrela.classList.add("estrela");
-        estrela.style.top = `${Math.random() * 100}%`;
-        estrela.style.left = `${Math.random() * 100}%`;
-        estrela.style.animationDelay = `${Math.random() * 3}s`;
-        estrelasContainer.appendChild(estrela);
-      }
-
-      // Cria meteoros
-      function criarMeteoro() {
-        const meteoro = document.createElement("div");
-        meteoro.classList.add("meteoro");
-        meteoro.style.top = `${Math.random() * 50}%`;
-        meteoro.style.left = `${Math.random() * 50}%`;
-        meteoro.style.animationDuration = `${3 + Math.random() * 2}s`;
-        meteorosContainer.appendChild(meteoro);
-
-        setTimeout(() => meteoro.remove(), 5000);
-      }
-      setInterval(criarMeteoro, 2000);
-
-      // 🚀 Projetos pré-definidos
-      const projetos = [
-        {
-          nome: "Tetris 3D",
-          url: "https://apptetris.vercel.app",
-          thumb: "https://via.placeholder.com/400x250?text=Tetris+3D"
-        },
-        {
-          nome: "Simulador de Aquário",
-          url: "https://aquario3d.vercel.app",
-          thumb: "https://via.placeholder.com/400x250?text=Aquario+3D"
-        },
-        {
-          nome: "Chat Bot AI",
-          url: "https://groovechat.vercel.app",
-          thumb: "https://via.placeholder.com/400x250?text=Caça+ao+Tesouro"
-        }
-      ];
-
-      const container = document.getElementById("projetos");
-      projetos.forEach(p => {
-        const card = document.createElement("div");
-        card.className =
-          "relative group border border-zinc-700 rounded-2xl overflow-hidden shadow-xl bg-zinc-900 hover:scale-[1.03] transition-transform duration-300";
-
-        card.innerHTML = `
-          <a href="${p.url}" target="_blank" rel="noreferrer">
-            <img src="${p.thumb}" alt="${p.nome}" class="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition">
-            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
-              <h2 class="text-xl font-semibold">${p.nome}</h2>
-            </div>
-          </a>
-        `;
-        container.appendChild(card);
-      });
-    </script>
-  </body>
+      card.innerHTML = `
+        <a href="${p.url}" target="_blank" rel="noreferrer">
+          <img src="${p.thumb}" alt="${p.nome}" class="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition">
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
+            <h2 class="text-xl font-semibold">${p.nome}</h2>
+          </div>
+        </a>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+</body>
 </html>
