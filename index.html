@@ -61,14 +61,13 @@
   </style>
 </head>
 
-<body class="relative flex flex-col items-center text-center">
-
+<body class="relative flex flex-col items-center justify-center text-center min-h-screen">
   <!-- Fundo animado -->
   <div class="estrelas" id="estrelas"></div>
   <div class="meteoros" id="meteoros"></div>
 
   <!-- Conteúdo -->
-  <div class="z-10 w-full max-w-5xl p-6">
+  <div class="z-10 w-full max-w-5xl p-6 flex flex-col items-center justify-center">
     <h1 class="text-5xl font-extrabold mb-3 tracking-tight">Rodrigo Marafon</h1>
     <p class="text-gray-400 mb-10 text-lg">Projetos em destaque</p>
 
@@ -77,27 +76,18 @@
   </div>
 
   <!-- Relógio -->
-  <div
-    id="clock"
-    class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right z-10"
-  ></div>
+  <div id="clock"
+    class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right z-10">
+  </div>
 
   <!-- Botões flutuantes -->
   <div class="absolute bottom-6 right-6 flex flex-col gap-3 z-10">
-    <a
-      href="https://wa.me/seunumerowhatsapp"
-      target="_blank"
-      rel="noreferrer"
-      class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
-    >
+    <a href="https://wa.me/seunumerowhatsapp" target="_blank" rel="noreferrer"
+      class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
       <i data-lucide="message-circle" class="w-5 h-5"></i>
     </a>
-    <a
-      href="https://linkedin.com/in/seulinkedin"
-      target="_blank"
-      rel="noreferrer"
-      class="p-4 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
-    >
+    <a href="https://linkedin.com/in/seulinkedin" target="_blank" rel="noreferrer"
+      class="p-4 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
       <i data-lucide="linkedin" class="w-5 h-5"></i>
     </a>
   </div>
