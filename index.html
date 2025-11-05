@@ -13,17 +13,30 @@
 
   <style>
     body {
-      background: radial-gradient(circle at bottom, #050505 0%, #000 80%);
       color: white;
       min-height: 100vh;
       margin: 0;
       overflow-y: auto;
+      position: relative;
+    }
+
+    /* Fundo fixo independente do zoom */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      background: radial-gradient(circle at bottom, #050505 0%, #000 80%);
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      will-change: transform;
     }
 
     .estrelas, .meteoros {
       position: fixed;
       inset: 0;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
     }
 
@@ -74,7 +87,7 @@
     class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right z-10">
   </div>
 
-  <!-- Botões flutuantes fixos -->
+  <!-- Botões fixos -->
   <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
     <a href="https://wa.me/5541984097415" target="_blank" rel="noreferrer"
       class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
