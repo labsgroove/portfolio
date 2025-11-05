@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfólio de Rodrigo Marafon</title>
 
-  <!-- Tailwind via CDN -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Ícones -->
-  <script type="module">
-    import { createIcons, Linkedin, MessageCircle } from "https://cdn.skypack.dev/lucide";
-    window.addEventListener("DOMContentLoaded", () => createIcons());
-  </script>
+  <!-- Ícones Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     body {
@@ -20,12 +17,11 @@
       color: white;
       min-height: 100vh;
       margin: 0;
-      overflow-y: auto; /* permite scroll vertical */
+      overflow-y: auto;
     }
 
-    /* Fundo animado */
     .estrelas, .meteoros {
-      position: fixed; /* fundo fixo */
+      position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
@@ -41,10 +37,6 @@
       animation: piscar 3s infinite ease-in-out;
     }
 
-    .w-5.h-5 {
-      color: white;
-    }
-
     @keyframes piscar {
       0%, 100% { opacity: 0.2; }
       50% { opacity: 1; }
@@ -54,7 +46,7 @@
       position: absolute;
       width: 2px;
       height: 100px;
-      background: linear-gradient(to top, white, transparent); /* cauda invertida */
+      background: linear-gradient(to top, white, transparent);
       opacity: 0.8;
     }
 
@@ -71,38 +63,32 @@
   <div class="meteoros" id="meteoros"></div>
 
   <!-- Conteúdo -->
-<div class="z-10 w-full max-w-5xl p-6 flex flex-col items-center justify-center pt-24 sm:pt-12">
-  <h1 class="text-5xl font-extrabold mb-3 tracking-tight">Rodrigo Marafon</h1>
-  <p class="text-gray-400 mb-10 text-lg">Projetos em destaque</p>
-
-  <!-- Projetos -->
-  <div id="projetos" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
-</div>
+  <div class="z-10 w-full max-w-5xl p-6 flex flex-col items-center justify-center pt-24 sm:pt-12">
+    <h1 class="text-5xl font-extrabold mb-3 tracking-tight">Rodrigo Marafon</h1>
+    <p class="text-gray-400 mb-10 text-lg">Projetos em destaque</p>
+    <div id="projetos" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </div>
 
   <!-- Relógio -->
   <div id="clock"
     class="absolute top-5 right-5 bg-zinc-900/70 backdrop-blur-md px-4 py-2 rounded-xl border border-zinc-700 text-sm leading-tight text-right z-10">
   </div>
 
-  <!-- Botões flutuantes -->
-  <div class="absolute bottom-6 right-6 flex flex-col gap-3 z-10">
+  <!-- Botões flutuantes fixos -->
+  <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
     <a href="https://wa.me/5541984097415" target="_blank" rel="noreferrer"
       class="p-4 bg-green-500 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
-      <i data-lucide="message-circle" class="w-5 h-5"></i>
+      <i data-lucide="message-circle" class="w-5 h-5 text-white"></i>
     </a>
     <a href="https://www.linkedin.com/in/rodrigo-marafon-81b79a167/" target="_blank" rel="noreferrer"
       class="p-4 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
-      <i data-lucide="linkedin" class="w-5 h-5"></i>
+      <i data-lucide="linkedin" class="w-5 h-5 text-white"></i>
     </a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.258.0/dist/lucide.min.js"></script>
-  <script>
-    lucide.replace(); // transforma os <i data-lucide="..."> em SVGs
-  </script>
-
 
   <script>
+    lucide.createIcons();
+
     // Relógio
     function atualizarRelogio() {
       const agora = new Date();
@@ -133,7 +119,7 @@
 
       const startX = Math.random() * window.innerWidth;
       const startY = -100;
-      const endX = startX - (300 + Math.random() * 300); // diagonal esquerda
+      const endX = startX - (300 + Math.random() * 300);
       const endY = window.innerHeight + 100;
 
       meteoro.style.setProperty('--start-x', startX + 'px');
@@ -141,7 +127,7 @@
       meteoro.style.setProperty('--end-x', endX + 'px');
       meteoro.style.setProperty('--end-y', endY + 'px');
 
-      const duracao = 4 + Math.random() * 2; // 4-6s
+      const duracao = 4 + Math.random() * 2;
       meteoro.style.animation = `cair ${duracao}s linear forwards`;
 
       meteorosContainer.appendChild(meteoro);
@@ -149,28 +135,12 @@
     }
     setInterval(criarMeteoro, 1200);
 
-    // Projetos com imagens estáticas
+    // Projetos
     const projetos = [
-      {
-        nome: "Tetris 3D",
-        url: "https://apptetris.vercel.app",
-        thumb: "https://i.ibb.co/HLFSQdys/imageas.png"
-      },
-      {
-        nome: "Simulador de Aquário",
-        url: "https://aquario3d.vercel.app",
-        thumb: "https://i.ibb.co/KpDR5Rcb/imageasdg.png"
-      },
-      {
-        nome: "Mensageria Whatsapp + Chat GPT",
-        url: "https://www.youtube.com/watch?v=w7539fBt2K4",
-        thumb: "https://i.ibb.co/WWrCZTyG/Chat-GPT-Image-16-de-out-de-2025-08-50-57.jpg"
-      },
-      {
-        nome: "Chat Bot Personalizado",
-        url: "https://groovechat.vercel.app",
-        thumb: "https://i.ibb.co/9zjCT4t/imagehdh.png"
-      }
+      { nome: "Tetris 3D", url: "https://apptetris.vercel.app", thumb: "https://i.ibb.co/HLFSQdys/imageas.png" },
+      { nome: "Simulador de Aquário", url: "https://aquario3d.vercel.app", thumb: "https://i.ibb.co/KpDR5Rcb/imageasdg.png" },
+      { nome: "Mensageria Whatsapp + Chat GPT", url: "https://www.youtube.com/watch?v=w7539fBt2K4", thumb: "https://i.ibb.co/WWrCZTyG/Chat-GPT-Image-16-de-out-de-2025-08-50-57.jpg" },
+      { nome: "Chat Bot Personalizado", url: "https://groovechat.vercel.app", thumb: "https://i.ibb.co/9zjCT4t/imagehdh.png" }
     ];
 
     const container = document.getElementById("projetos");
